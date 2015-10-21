@@ -1,0 +1,119 @@
+++ Swig and mongodb  https://university.mongodb.com/courses/MongoDB/M101JS/2015_October/courseware/Week_1_Introduction/525499c0e2d4231cc6084009
+
+++ get & urls
+https://university.mongodb.com/courses/MongoDB/M101JS/2015_October/courseware/Week_1_Introduction/525499dce2d4231cc608400a
+
+Mongo db is not a relational data base.
+
+
+What does json stand for?
+JSON
+++
+
+JSON is schemaless
+
+++ Bson
+   Binary json
+
+++ Mongo db is schemaless
+++ Mongo db is also schemaless
+
++- mongo db does not support joins
++- mongo does not support sql
+
++ Mongo db is scalable
+   +- MongoDB does not support joins
+   +
+   + And Transactions
+
+
++ Depth of functionality
+
++++Mongo db shell
+    +"show dbs" will allow us to see what dbs are available to us.
+
+    + "use dbs" allows us to access a certain db. And it will create one if the db does not exsist.
+
+    + db.x.find(), x is eqaul to the collection within the database.
+
+    + directly query for a json document by copying
+
+    +  loops in shell are a green light
+
+    + Json document vs a key
+
+    + Mongo script.js while mongo server is up to test your code on your mongo shell.
+
++++ Example query
+   db.x.insert({a: 'the',b: 'foobar',c: 'foo', })
+
+   valid json example
+
+     "name" : hello {
+       "foo" : {
+          "c": 1,
+          "b" : 1,
+          "a" : 1,
+
+       }
+     }
+
++++ mongodb node.js
+
+  + db.close should happen each time you return something from the database.
+
+
+
++++ AsycIO vs SyncIO
+
+   \Look into both concepts
+
+// IDEA: tellall emergency
+
++++expresss and templeting
+   consolidate allows us to use other templeting engies in our express app.
+
+// attention: app now allows us to integrate a templeting engine into our application.
+   var cons = require('consolidate');
+
+//using a templting engine
+app.engine(html, cons.swig);
+app.set('veiw engine', 'html');
+app.set('views', __dirname + dir to  html)
+
+passing in doc in a call back function will allow you to get, minipulate data about the mongo collections data.
+
++++ Express Url and Get request
+app.use(app.router);?
+
+++  handling post requests
+  ++  res.render will allow us to render anything to the dom from our javascript.
+
+  Json can be indexed fairly easy to manupulate on the fly
+   ++ One you can assign queries to varibles.
+   ++ var j = db
+   ++ db.users.save(j)
+
+   JSON ()
+  arrays
+   dictionaries is an accioate maps
+   key word and values
+
+   Example of valid JSON
+   {
+   //key
+    "fruit": [
+//values
+        "apple",
+        "pear",
+        "peach"
+    ]
+}
+
+Modeling our blog in mongo
+
+Identify a document with in a collection with its id, or with a unique key value pair.
+
+++Schema design
+
+++ mongorestore take ish from dump file meaning databases an collections and add it to our serve (local server)
