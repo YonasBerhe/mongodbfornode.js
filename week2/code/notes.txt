@@ -1,0 +1,19 @@
+Node.js + CRUD
+++
+Importing json documents to mongo db
+
+mongoimport -d course -c grades
+
+.toArray retrives then you modify
+.each allows you to modify things on the fly.
+
+++ 1.sort
+2. skip
+3. limit
+
+
+cant mix $operators with querys
+
+con do inplace updates using dollar sign
+
+save method takes our document and replaces it. check if _

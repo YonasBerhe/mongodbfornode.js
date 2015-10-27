@@ -1,0 +1,171 @@
+the "and" operator allow you to check if two things might exist in the array.
+
+
+using for loop to create data in mongo shell
+
+var cursor = db.coll.find(),
+    i = 0;
+
+cursor.forEach(function(x){
+    db.test.insert({_id: x._id}, {$set:{new_field:i}})
+    $i++;
+});
+
+
+ ++Inserting data
+  find() allow us only to search in the order of the actual document.
+
+  Consistency is key when querying for data.
+
+  ++Dot notation
+
+  db.test.insert({ "email" {"note" : "blah", "hello": "world"}});
+
+  db.test.find( {"email.hello" : "world"})
+
+greater than and less than review.
+
+db.scores.find({ score: {$gte : 95, $lte : 100 } });
+
+db.name.find({ "name" { $gt: "B" , $lge : "G" }})
+
+++ Check if they exists or not
+
+{$exists : true  } //will check if key exists in the collection.
+
+db.name.find({"name" : {$exists: true}});
+
+++$Type
+++Check if document has a string value
+
+db.name.find({"name" : {$type: 2}});
+
+
+++ regex
+
+Check if documents have the letter e in them.
+db.name.find({"name" : {$regex: "e"}});
+//Checks if any querys have the letter at the end of it.
+db.name.find({"name" : {$regex: "e$"}});
+
+++QUIZ
+
+//Wrong answer
+db.users.find({ "username" : {$regex : "q"}, {"email" : true}})
+
+
+ //Correct below
+db.users.find({ "name" : {$regex : "q"}, email : {$exists : true}})
+
+db.catalog.find({"price" : { "$gt" : 10000}, "reviews.rating" : { "$gte" : 5 }});
+
+++
+
+Cursors
+
+cur = db.people.find(); null;
+
+cur.hasNext allows you to check if their are documents available.
+
+cur.next() will print out one document at a time!
+
+Lops and while loops
+
+while (cur.hasNext()) print(cur.next());
+ // limiting the amount of documents you want to get back
+cur.limit(5); null;
+
+cur.sort ({name -1}).limit(3); null;
+
+-1 will list out the name is alphabestical order. Or in a lexigraphical way?
+
+.skip over the first two documents that are returned.
+null so the cursor won't be returned
+cur.sort ({name -1}).limit(3).skip(2); null;
+
+Counting
+
+db.people.count({type : "essay", score : {$gt : 90}});
+
+Wholesale Updating of a Document.
+
+db.people.update( {name : "Smith", "salary" :  90 } , {name : "Yonas",  salary : 10} )
+
+on update a Documents schema could possibly delete other keys within the document if
+not used in monogo db qeury.
+
+
+$Update operator
+
+$set operators
+
+The set operator allows us to set new values to documents with deleting other keys within
+a document
+
+db.people.update( {name : "Smith", {$set : {"hello" : "speak "}}    } )
+
+
+$inc allows to increment
+
+setting arrarys with dot notation
+
+a: [1,2,3,4,5]
+
+{$set : {"a.2" : 2 }}
+
+$push allows us to push a value to the end of an array to right
+db.hello.insert({id: 0} , {$push : {a : 6}})
+
+
+The $pop operator removes the first or
+last element of an array.Pass $pop a value
+of -1 to remove the first element of an array
+ and 1 to remove the last element in an array.
+
+lest element
+db.hello.insert({id: 0} , {$pop : {a : 1}})
+1st side $pop
+db.hello.insert({id: 0} , {$pop : {a : -1}})
+
+$pushAll add a list of elements to an array regardless of whether or not
+the element exsists or not.
+
+$pull any element from an erray
+
+$pullAll remove all elements from an array that matches it elements past in.
+
+$addToSet will not mess with the data just checks if the value is not their and then
+it doesnt do anyting.
+
+update does 4 things
+- whole sale updates to documents
+- Minipulation of feilds inside of a document
+- Upsert
+- Multiple Documents
+Upsert allows us to check if the document exsists or just add a new document
+
+db.people.update( {name : "Smith"}, {$set : {"hello" : "speak "}}, {upsert : true} )
+
+{ }, empty stands for each document within a collection
+
+multi true is important when trying to update multiple documents
+MDB by default only updates one document
+db.people.update( { }, {$set : {"hello" : "speak "}}, {multi : true} )
+
+db.scores.update({$set : {"score" : {"$lt" : 70}}}, {$inc :{score:20 }} ,{multi : true} )
+
+var b = db.scores.score;
+if (b < 70) {
+   return b += 20;
+} else {
+   console.log("you're fine")
+}
+
+
+++Deleting documents
+one by one
+
+db.scores.remove({ score: {"$lt" : 60 }})
+
+faster removal
+db.people.drop()
